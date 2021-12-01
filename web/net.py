@@ -12,10 +12,13 @@ from datetime import datetime
 def main():
     # 1.创建套接字对象并指定使用哪种传输服务
     # family=AF_INET - IPv4地址
+    # family=AF_UNIX - 只能够用于单一的Unix系统进程间通信
     # family=AF_INET6 - IPv6地址
     # type=SOCK_STREAM - TCP套接字
     # type=SOCK_DGRAM - UDP套接字
-    # type=SOCK_RAW - 原始套接字
+    # type=SOCK_RAW - 原始套接字，无法处理ICMP、IGMP等网络报文，而SOCK_RAW可以；
+    # 其次，SOCK_RAW也可以处理特殊的IPv4报文；此外，利用原始套接字，可以通过IP_HDRINCL套接字选项由用户构造IP头。
+    # https://blog.csdn.net/zzyandzzzy/article/details/72236388
     server = socket(family=AF_INET, type=SOCK_STREAM)
     # 2.绑定IP地址和端口(端口用于区分不同的服务)
     # 同一时间在同一个端口上只能绑定一个服务否则报错
