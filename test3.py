@@ -1,22 +1,25 @@
+from win10toast import ToastNotifier
+import time
+import bidict
 
-def function(low, high):
-    num_list = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-    low_len = len(str(low))
-    res = []
-    high_len = len(str(high))
-    for length in range(low_len, high_len+1):
-        for index in range(0, 10-length):
-            s_index = index
-            s_length = length
-            num_str = ''
-            while s_length:
-                num_str += num_list[s_index]
-                s_length -= 1
-                s_index += 1
-            if low <= int(num_str) <= high:
-                res.append(int(num_str))
-            continue
-    return res
 
-if __name__ == '__main__':
-    print(function(1000, 13000))
+a = bidict()
+
+toaster = ToastNotifier()
+
+# header = input("What You Want Me To Remember\n")
+# text = input("Releated Message\n")
+# time_min = float(input("In how many minutes?\n"))
+
+header = "What You Want Me To Remember\n"
+text = "Releated Message\n"
+time_min = 10
+
+# time_min = time_min * 60
+print("Setting up reminder..")
+time.sleep(2)
+print("all set!")
+time.sleep(time_min)
+toaster.show_toast(f"{header}", f"{text}", duration=10, threaded=True, icon_path=r'C:/Users/admin/Desktop/20211103_xiaogui/test.ico')
+while toaster.notification_active():
+    time.sleep(0.005)
